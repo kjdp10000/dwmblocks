@@ -1,42 +1,36 @@
 #!/bin/sh
 # (for pulseaudio users)
-# This script parses the output of `pacmd list-sinks' to find volume and mute
-# status of the default audio sink and whether headphones are plugged in or not
-# Also see ../daemons/pulse_daemon.sh
-pacmd list-sinks | awk '
-    BEGIN {
-        ICONsn = "\x0c\x0b" # headphone unplugged, not muted
-        ICONsm = "\x0d\x0b" # headphone unplugged, muted
-        ICONhn = "\x0c\x0b" # headphone plugged in, not muted
-        ICONhm = "\x0d\x0b" # headphone plugged in, muted
-    }
-    f {
-        if ($1 == "muted:" && $2 == "yes") {
-            m = 1
-        } else if ($1 == "volume:") {
-            if ($3 == $10) {
-                vb = $5
-            } else {
-                vl = $5
-                vr = $12
-            }
-        } else if ($1 == "active" && $2 == "port:") {
-            if (tolower($3) ~ /headphone/)
-                h = 1
-            exit
-        }
-        next
-    }
-    $1 == "*" && $2 == "index:" {
-        f = 1
-    }
-    END {
-        if (f) {
-            printf "%s", h ? (m ? ICONhm : ICONhn) : (m ? ICONsm : ICONsn)
-            if (vb)
-                print vb
-            else
-                printf "L%s R%s\n", vl, vr
-        }
-    }
-'
+
+# Prints the current volume or 🔇 if muted.
+
+case $1 in
+	1) setsid -f "$TERMINAL" -e pavucontrol ;;
+	2) pactl set-sink-mute @DEFAULT_SINK@ toggle 
+		kill -44 $(pidof dwmblocks) ;;
+	4) pactl set-sink-volume @DEFAULT_SINK@ +1% 
+		kill -44 $(pidof dwmblocks) ;;
+	5) pactl set-sink-volume @DEFAULT_SINK@ -1%  
+		kill -44 $(pidof dwmblocks) ;; 
+	3) notify-send "📢 Volume module" "\- Shows volume 🔊, 🔇 if muted.
+- Middle click to mute.
+- Scroll to change." ;;
+	6) "$TERMINAL" -e "${EDITOR} $0" ;;
+esac
+
+getmute=`pacmd list-sinks | grep -e muted | awk '{print $2}'`
+vol=`pacmd list-sinks | grep -E '^\s*volume:' | grep -E -o '[0-9]{1,3}.?\%' | head -1 | sed 's/%//'`
+
+[ $getmute = "yes" ] && echo "🔇" && exit
+
+# vol="$(pamixer --get-volume)"
+
+if [ "$vol" -gt "70" ]; then
+	icon="🔊"
+elif [ "$vol" -lt "30" ]; then
+	icon="🔈"
+else
+	icon="🔉"
+fi
+
+#echo "$icon$vol%"
+printf "$icon%s" "$vol%"

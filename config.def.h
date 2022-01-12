@@ -1,5 +1,5 @@
 /* macro for conveniently specifying pathu and pathc below */
-#define PATH(name)                      "<path to the folder containing block scripts>/"name
+#define PATH(name)                      "/home/kev/Programs/dwmblocks/blocks/"name
 
 /* buffer size for capturing output of the programs used for updating blocks */
 #define CMDOUTLENGTH                    50
@@ -13,7 +13,7 @@
    defined in colors array in dwm's config.h and so on.
  * If you wish to change DELIMITERENDCHAR, don't forget to update its value in
    dwm.c and color codes in your pathu programs. */
-#define DELIMITERENDCHAR                10
+#define DELIMITERENDCHAR               12 
 
 /* delimiter specified as an array of characters
  * (don't remove DELIMITERENDCHAR at the end) */
@@ -43,9 +43,13 @@ static const char delimiter[] = { ' ', ' ', ' ', DELIMITERENDCHAR };
 
 static Block blocks[] = {
 /*      pathu                           pathc                           interval        signal */
-        { PATH("calendar.sh"),          NULL,                           30,             1},
-        { PATH("volume.sh"),            PATH("volume_button.sh"),       0,              2},
-        { PATH("cpu_temp.sh"),          PATH("cpu_temp_button.sh"),     1,              4},
-        { PATH("battery.sh"),           PATH("battery_button.sh"),      30,             3},
+        //{ PATH("cpu_temp.sh"),          PATH("cpu_temp_button.sh"),     1,              4},
+		    //{ PATH("forecast.sh"),          PATH("forecast.sh"),            1800,           8},*/
+        { PATH("calendar.sh"),          PATH("calendar.sh"),              30,             1},
+        { PATH("volume.sh"),            PATH("volume.sh"),       		      0,              10},
+        { PATH("cpu.sh"),          		  PATH("cpu.sh"),     			        1,              7},
+		    { PATH("memory.sh"),			      PATH("memory.sh"),							  10,				      5},
+		    { PATH("internet.sh"),			    PATH("internet.sh"),	 		        10,				      6},
+        { PATH("battery.sh"),           PATH("battery_button.sh"),        30,             3},
         { NULL } /* just to mark the end of the array */
 };
