@@ -50,6 +50,7 @@ static Block blocks[] = {
         { PATH("cpu.sh"),          		  PATH("cpu.sh"),     			        1,              7},
 		    { PATH("memory.sh"),			      PATH("memory.sh"),							  10,				      5},
 		    { PATH("internet.sh"),			    PATH("internet.sh"),	 		        10,				      6},
+		    { PATH("brightness.sh"),		    PATH("brightness.sh"),		        0,				      4},
         { PATH("battery.sh"),           PATH("battery_button.sh"),        30,             3},
         { NULL } /* just to mark the end of the array */
 };
