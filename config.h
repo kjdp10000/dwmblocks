@@ -1,5 +1,5 @@
 /* macro for conveniently specifying pathu and pathc below */
-#define PATH(name)                      "$HOME/.local/bin/dwmblocks/blocks/"name
+#define PATH(name)                      "/home/kev/.local/bin/statusbar/"name
 
 /* buffer size for capturing output of the programs used for updating blocks */
 #define CMDOUTLENGTH                    50
@@ -43,14 +43,14 @@ static const char delimiter[] = { ' ', ' ', ' ', DELIMITERENDCHAR };
 
 static Block blocks[] = {
 /*      pathu                           pathc                           interval        signal */
-        //{ PATH("cpu_temp.sh"),          PATH("cpu_temp_button.sh"),     1,              4},
-	    //{ PATH("forecast.sh"),          PATH("forecast.sh"),            1800,           8},*/
-        { PATH("calendar.sh"),          PATH("calendar.sh"),              30,             1},
-        { PATH("volume.sh"),            PATH("volume.sh"),       		   0,              10},
-        { PATH("cpu.sh"),          		PATH("cpu.sh"),     			   1,              7},
-	    { PATH("memory.sh"),			PATH("memory.sh"),				  10,			   5},
-	    { PATH("internet.sh"),			PATH("internet.sh"),	 		  10,			   6},
-	    { PATH("brightness.sh"),		PATH("brightness.sh"),		       0,			   4},
-        { PATH("battery.sh"),           PATH("battery_button.sh"),        30,              3},
+        //{ PATH("cpu_temp"),          PATH("cpu_temp_button"),     1,              4},
+	    //{ PATH("forecast"),          PATH("forecast"),            1800,           8},*/
+        {PATH("sb_calendar"),              PATH("sb_calendar"),                 30,            1},
+        {PATH("sb_volume"),       	       PATH("sb_volume"),       		    0,             10},
+        {PATH("sb_cpu"),     		       PATH("sb_cpu"),     			        1,             7},
+	    {PATH("sb_memory"),			 	   PATH("sb_memory"),				    10,			   5},
+	    {PATH("sb_internet"),	 	 	   PATH("sb_internet"),	 		        10,			   6},
+	    {PATH("sb_brightness"),		       PATH("sb_brightness"),		        0,			   4},
+        {PATH("sb_battery"),               PATH("sb_battery"),                  30,            3},
         { NULL } /* just to mark the end of the array */
 };
